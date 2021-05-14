@@ -6,6 +6,7 @@ Created on Sun May  9 19:05:38 2021
 """
 
 import random
+import pandas as pd
 random.seed()
 
 class drunk():
@@ -34,7 +35,7 @@ class drunk():
         (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)]) # N, E, S, W
         self.x = (self.x + dx) % 300
         self.y = (self.y + dy) % 300
-        self.route.append([[self.x, self.y]]) #So agent can see if they have been here before.
+        self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
         #self.pushX = self.x
         #self.pushY = self.y
         self.distance = self.distance + 1
@@ -47,21 +48,7 @@ class drunk():
             print("Walk completed")
             return(True)
             
-
-
-     
-'''gets drunk to move until it reaches home'''
-#for i in range(25):
-     
-#    j = drunk(i)
-#    x = 0
-#    while drunk.is_home(j) == False:
-#        drunk.move(j)
-#        x += 1
-        #plt.figure(figsize=(8,8))
-        #plt.scatter(a.pushX, a.pushY)
-        #plt.show()
-#    else:
-#        print("Drunk:",i,"finished in", x, "steps")
-#        print(j.is_home())
-           
+    def get_route(self):
+        df = pd.DataFrame(self.route)
+        #df.columns = ['x', 'y']
+        return(df)

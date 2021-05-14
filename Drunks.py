@@ -13,6 +13,7 @@ import csv
 import drunkFramework
 import time
 import pandas as pd
+import seaborn as sns
 
 '''Step 1'''
 xAxis = 300
@@ -63,7 +64,7 @@ for row in (environment):
     for j in row:
         y +=1
         if j == 1:
-            pubList.append([j, x, y])
+            pubList.append([j, y, x])
             
 print(pubList) # A list of lists containing pub x-coordinate and y-coordinate.
     
@@ -77,7 +78,7 @@ for row in (environment):
     for i in row:
         y +=1
         if i != 1 and i != 0:
-            houseList.append([i, x, y])
+            houseList.append([i, y, x])
             
 print(houseList) # A list of lists containing pub x-coordinate and y-coordinate.
 
@@ -101,49 +102,90 @@ for drunk in(drunks):
 drunk_num = 0
 for i in (drunks):
     start = time.process_time()
-    num_of_steps = 0
+    #num_of_steps = 0
     drunk_num += 1
     while i.is_home() == False:
         i.move()
-        num_of_steps += 1
+       # num_of_steps += 1
     else:
         end = time.process_time()
-        print("Drunk", drunk_num,"finished in", num_of_steps, "steps and", end - start, "seconds.")
+        print("Drunk", drunk_num,"finished in", i.distance, "steps and", end - start, "seconds.")
         #print(i.is_home())
 
-  
+##################################
+ 
 '''Creating table to store cell counts'''
 print('Starting Table')
-#Creates a dataframe with all cells from environment in it.
 data = []
-for row in range(0,301):
-    for col in range(0, 301):
-        data.append([row, col])
-#print(data)
-
-data1 = pd.Series(data)#converts matrix into series so only one column
-df = pd.DataFrame(data1)#converts series into dataframe to add column
-df.insert(1, 'Count', 0, False)#creates an additional column called Count.
-print(df)
+for row in range(0,300):
+    for col in range(0, 300):
+        data.append([row,col])
+data = pd.DataFrame(data)
+data.columns = ['x', 'y']
+print(data)
 print('Finished Tables')
+##################################
 
-# #go through every drunk route list
-# for i in (drunks):
-#     drunk_route = pd.DataFrame(drunk.route)
-#     drunk_route.columns
-#     #print(drunk_route)
-#     drunk_route[0].value_counts()
-#     print(drunkdrunk_route)
-# #for every point add a value of 1 to count column
+'''creating a dictionary which counts the number of occurences of
+a cell for all drunks'''
+
+count = {}
+for i in drunks:
+    df_route = i.get_route()
+    print(df_route)
+    column = df_route[0]
+    for entry in column:
+        if entry in count.keys():
+            count[entry] += 1
+        else:
+            count[entry] = 1
+#print(count)
 
 
+'''converts dictrionary into a dataframe'''    
+cell_count = pd.DataFrame(list(count.items()), columns = ['Coords', 'Amount'])
+cell_count['x'], cell_count['y'] = zip(*cell_count.Coords)
+cell_count.pop('Coords')
 
-#################################
+print(cell_count)
+
+'''merges dataframe of all cells with cell occurences'''            
+merge_data = pd.merge(data, cell_count)
+
+'''Sort df into rows'''
+sorted_data = merge_data.sort_values(['y', 'x'], ascending=[True, True])
+print(sorted_data.columns)
+print(sorted_data)
+ 
+'''converts into a list'''
+list_of_amount = sorted_data['Amount'].values.tolist()
+print(list_of_amount)
+
+'''converts into list of list'''
+i = 0
+new_list = []
+while i <len(list_of_amount):
+    new_list.append(list_of_amount[i : i + 300])
+    i += 300
+    
+print(new_list)
+
+'''creates map'''
+ax = sns.heatmap(new_list)
+
+'''export data'''
+file_finished = open('export_walks.txt', 'w', newline='') 
+writer = csv.writer(file_finished, delimiter=',')
+for row in new_list:		
+	writer.writerow(row)		# List of values.
+file.close()
+
+# #################################
     
 
-for i in range(25): #Number of houses
-     plt.scatter(houseList[i][1], houseList[i][2], c='Red')
-for j in range(9): #Number of pubs
-     plt.scatter(pubList[j][1], pubList[j][2], c='Green')
-plt.show()
+# # for i in range(25): #Number of houses
+# #      plt.scatter(houseList[i][1], houseList[i][2], c='Red')
+# # for j in range(9): #Number of pubs
+# #      plt.scatter(pubList[j][1], pubList[j][2], c='Green')
+# # plt.show()
 
