@@ -8,10 +8,9 @@ This is a temporary script file.
 '''Import Statements'''
 import matplotlib
 matplotlib.use('TkAgg')
-from matplotlib.figure import Figure
 import random
-import numpy
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 import csv # to read files
 import drunkFrameworkadvance
 import time #for testing
@@ -19,7 +18,7 @@ import pandas as pd #for dataframes
 import seaborn as sns #for heatmaps, looks better than plt
 import sys
 import argparse #used for commandline interface.
-import tkinter
+import tkinter as tk
 
     #Commandline interface
 # parser = argparse.ArgumentParser(description=
@@ -175,18 +174,19 @@ def displayData():
         plot1 = plt.scatter(houseList[i][1], houseList[i][2], c='Red')
     for j in range(9): #Number of pubs
         plot1 = plt.scatter(pubList[j][1], pubList[j][2], c='Green', label='Pubs')
-    # containing the Matplotlib figure
-    canvas =  matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master = root)  
+    canvas =   matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master = root)  
     
     canvas.draw()
   
     # placing the canvas on the Tkinter window
     canvas.get_tk_widget().pack()
 
-    plt.close()
-
-    
-    
+    plt.close()  
+    toolbar = NavigationToolbar2Tk(canvas, root)
+    toolbar.update()
+  
+    # placing the toolbar on the Tkinter window
+    canvas.get_tk_widget().pack()
     
     
 def runModel():
@@ -293,7 +293,7 @@ def runModel():
     
     print('Step 9: Creating a Map of Cell Densities')
     '''Step 9: Creating a Map'''
-    canvas.get_tk_widget('canvas').destroy()
+    
     fig = plt.figure(figsize=(8,8))
     
   
@@ -307,6 +307,12 @@ def runModel():
     canvas.draw()
   
     # placing the canvas on the Tkinter window
+    canvas.get_tk_widget().pack()
+    
+    toolbar = NavigationToolbar2Tk(canvas, root)
+    toolbar.update()
+  
+    # placing the toolbar on the Tkinter window
     canvas.get_tk_widget().pack()
 
   
@@ -354,17 +360,16 @@ def exiting():
     root.destroy()
     print('Model Closed')
     
-
-        
+      
 
 
 '''Creating GUI'''
-root = tkinter.Tk()
+root = tk.Tk()
 root.wm_title("Model")
 root.geometry('800x800')
-menu_bar = tkinter.Menu(root)
+menu_bar = tk.Menu(root)
 root.config(menu=menu_bar)
-model_menu = tkinter.Menu(menu_bar)
+model_menu = tk.Menu(menu_bar)
 menu_bar.add_cascade(label="Model", menu=model_menu)
 model_menu.add_command(label="Display Pubs and Houses", command=displayData)
 model_menu.add_command(label="Run model", command=runModel)
@@ -375,4 +380,4 @@ model_menu.add_command(label="Exit model", command=exiting)
 if __name__ == '__main__':
     main()
 root.protocol('WM_DELETE_WINDOW', exiting)#When the GUI window is closed the exiting function is run.
-tkinter.mainloop()#GUI is constantly checking if it has been clicked.
+tk.mainloop()#GUI is constantly checking if it has been clicked.
