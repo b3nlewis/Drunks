@@ -14,14 +14,10 @@ class drunk():
         self.x = pubX #initial starting location
         self.y = pubY
         self.start = (pubX, pubY)
-        self.startX = pubX
-        self.startY = pubY
         self.end = (houseX, houseY)#house
         self.route = []
-        self.stuck = []
         self.distance = 0
-        self.position = []
-        self.j = 0
+        self.lastPos = []
         
     def starting_location(self):
         print(self.start)
@@ -31,62 +27,55 @@ class drunk():
         print(self.end)
         return(self.end)
     
-    def move(self):
+    def move(self):#simple method which includes backtracking
+        
+        #if self.check_cell() == False:
         (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)]) # N, E, S, W
-        x = dx + self.x
-        y = dy + self.y
-        if ([(x, y)]) not in self.stuck:
-            i = 0
-            while i <= 3:
-                if ([(x, y)]) not in self.route:
-                    #print([(x, y)])
-                    self.x = (self.x + dx) % 300
-                    self.y = (self.y + dy) % 300
-                    self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
-                    self.distance = self.distance + 1
-                    i += 1
-                else:
-                    self.x = self.startX
-                    self.y = self.startY
-                    self.stuck = self.route[-1]
-                    self.route = []
-            
-            
-        
-        
-            # moves = [(0, 1), (1, 0), (0, -1), (-1, 0)] # N, E, S, W
-            # updated_moves = random.sample(moves, 4)
-            # #print(updated_moves)
-            # x = self.x
-            # y = self.y
-            # i = 0
-            # for i in range(0, 4, 1):
-            #     #print("loop", i)
-            #     (dx, dy) = updated_moves[i] 
-            #     x = (x + dx) % 300
-            #     y = (y + dx) % 300
-            #     i += 1
-            #     if ([(x, y)]) not in self.route:
-            #         self.x = (x + dx) % 300
-            #         self.y = (y + dx) % 300
-            #         self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
-            #         self.distance = self.distance + 1
-            #         #self.j += 1
-            #         #print("2")
-            #         #print("loop", i)
-            #         return
-            #     else:
-            #         pass
-            # else:
-            #     (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)]) # N, E, S, W
-            #     self.x = (self.x + dx) % 300
-            #     self.y = (self.y + dy) % 300
-            #     self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
-            #     self.distance = self.distance + 1
-            #     #self.j += 1
-            #     #print("3")
-            # #print(self.j)
-                
+        self.x = (self.x + dx) % 300
+        self.y = (self.y + dy) % 300
+        self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+        self.distance = self.distance + 1
+    
+    def moveAdvance(self): #advance method which stops drunk backtracking
+        if self.lastPos != None:
+            if self.lastPos == [0, 1]: #check if last pos is north
+                (dx, dy) = random.choice([(0, 1), (1, 0), (-1, 0)]) #Cannot go south
+                self.x = (self.x + dx) % 300
+                self.y = (self.y + dy) % 300
+                self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+                self.lastPos = [dx, dy]
+                self.distance = self.distance + 1
+            #check if last pos is east
+            elif self.lastPos == [1, 0]: #check if last pos is east
+                (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1)]) #Cannot go west
+                self.x = (self.x + dx) % 300
+                self.y = (self.y + dy) % 300
+                self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+                self.lastPos = [dx, dy]
+                self.distance = self.distance + 1
+            #check if last pos is south
+            elif self.lastPos == [0, -1]: #check if last pos is south
+                (dx, dy) = random.choice([(1, 0), (0, -1), (-1, 0)]) #Cannot go north
+                self.x = (self.x + dx) % 300
+                self.y = (self.y + dy) % 300
+                self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+                self.lastPos = [dx, dy]
+                self.distance = self.distance + 1
+            #check if last pos is west
+            else:  #check if last pos is west
+                (dx, dy) = random.choice([(0, 1), (0, -1), (-1, 0)]) #Cannot go east
+                self.x = (self.x + dx) % 300
+                self.y = (self.y + dy) % 300
+                self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+                self.lastPos = [dx, dy]
+                self.distance = self.distance + 1
+        else:
+            (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)]) # N, E, S, W
+            self.x = (self.x + dx) % 300
+            self.y = (self.y + dy) % 300
+            self.route.append([(self.x, self.y)]) #So agent can see if they have been here before.
+            self.lastPos = [dx, dy]
+            self.distance = self.distance + 1              
                     
     def is_home(self):
         if (self.x, self.y) != self.end:
@@ -112,46 +101,17 @@ class drunk():
     
     
     
-    # def check_cell(self):
-    #     check = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-    #     position = [self.x, self.y]
-    #     if position not in self.route:
-    #         #print("3")
-    #         return False
-    #     else:
-    #         for i in range(4):
-    #             position = [sum(i) for i in zip(position, check[i])]
-    #             if position not in self.route:
-    #                 self.position = position
-    #                 self.route.append([position])
-    #                 #print("1")
-    #                 return self.position
-    #             else:
-    #                 val = random.choice(check)
-    #                 position = [sum(i) for i in zip(position, val)]
-    #                 self.position = position
-    #                 self.route.append([position])
-    #                 #print("2")
-    #                 return self.position
+    
+    
+    
+    
+    
+    
+    
             
-            
-            
-            
-            
-            
-            # x = 0
-            # while x < 5:
-            #     randVal = random.choice(check)                                  
-            #     try_pos = [sum(i) for i in zip(position, randVal)]
-            #     if try_pos in self.route:
-            #         x += 1
-            #         print("moved")
-            #         self.try_pos = try_pos
-            #         return self.try_pos
-            #     else:
-            #         return False #if no spaces available force a move.
-            # else:
-            #     randVal = random.choice(check)
-            #     try_pos = [sum(i) for i in zip(position, randVal)]
-            #     self.try_pos = try_pos
-            #     return self.try_pos                          
+    
+    
+    
+    
+    
+                      
