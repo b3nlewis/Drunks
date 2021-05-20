@@ -20,12 +20,15 @@ To start type:
 	-m: sets the map export name
 	-d: sets the txt file export name
 	-f: decides which method to use, simple or advance
+![Commandline](https://github.com/b3nlewis/Drunks/blob/main/docs/commandline.png?raw=true)
 	
 Once the command line is entered a GUI will appear.
 To run the model click each button until the process is completed.
 to end the model, either click the cross on the GUI or click exit model.
+The model must close before it can be run again.
+![GUI](https://github.com/b3nlewis/Drunks/blob/main/docs/homepage.png?raw=true)
 
-For more detailed documentation click here.
+For more detailed documentation click [here](https://b3nlewis.github.io/Drunks/).
 
 ## Files included
 drunks.py: This is the main script where the analysis and GUI code is located. 
