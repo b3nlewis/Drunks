@@ -33,9 +33,9 @@ The model must close before it can be run again.
 For more detailed documentation click [here](https://b3nlewis.github.io/Drunks/).
 
 ## Files included
-drunks.py: This is the main script where the analysis and GUI code is located. 
-drunkFramework: This is responsible for the drunk movement 
-environment.txt: Contains location of pubs and houses.
-timing.txt: Shows previous advance method timings.
-docs: Where documentation html files are stored.
-sphinx: Contains data used to build documentation.
+* drunks.py: This is the main script where the analysis and GUI code is located. 
+* drunkFramework: This is responsible for the drunk movement 
+* environment.txt: Contains location of pubs and houses.
+* timing.txt: Shows previous advance method timings.
+* docs: Where documentation html files are stored.
+* sphinx: Contains data used to build documentation.
