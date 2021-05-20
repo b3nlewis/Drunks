@@ -10,18 +10,18 @@ allows backtracking. The advanced version has significantly better performance.
 '''Import Statements'''
 import matplotlib
 matplotlib.use('TkAgg')
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #for GUI
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
+from matplotlib.figure import Figure #for GUI
 import random
 import csv # to read files
-import drunkFramework
+import drunkFramework #drunk class
 import time #for testing
 import pandas as pd #for dataframes
 import argparse #used for commandline interface.
 from tkinter import *
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk# for additional frames and progress bar
 
 '''Step 1: Initialisation'''
 print('Step 1: Initialisaing Model')
@@ -34,10 +34,10 @@ environment = []
 pubList = []
 houseList = []
 drunks = []
-new_list = []
-exportDataName = '' # used to name the exported data.
-exportMapName = '' #used to name the exported map
-framework = '' # used to set which method is used
+list_to_export = []
+exportDataName = "" # used to name the exported data.
+exportMapName = "" #used to name the exported map
+
 
 
 '''Step 2: Define Functions'''
@@ -45,20 +45,20 @@ print('Step 2: Defining Functions')
 
 def open_file(input_file, output_file, var_type):
     '''
-    oepns a file and saves it as a list of lists. Can change what variable
+    opens a file and saves it as a list of lists. Can change what variable
     type parameters are saved as. e.g. string, int, float.
     
-    Parameters
-    ----------
-    input_file : String
-        DESCRIPTION.
+    Parameters:
+    
+    input_file : file
+        A raw txt file.
     output_file : variable
-        DESCRIPTION.
+        A list of list containing input file data.
     var_type : TYPE
-        DESCRIPTION.
+        Assigns input data a variabale type.
 
-    Returns
-    -------
+    Returns:
+    
     Returns the input file as a List of Lists.
 
     '''
@@ -76,15 +76,17 @@ def write_file(input_file, output_file, mode):
     '''
     Writes a file out from a local file with a given file name.
     
-    Parameters
-    ----------
-    input_file : TYPE
-        DESCRIPTION.
-    output_file : TYPE
-        DESCRIPTION.
+    Parameters:
+    
+    input_file : variable
+        A list of list containing data
+    output_file : file
+        A txt file containing that data from input file with rows equal to the length of a list.
+    Mode : string
+        String which decides if output rewrites('w') or appends ('a') data.
   
-    Returns
-    -------
+    Returns:
+    
     A file with the output data written in it.
 
     '''
@@ -97,11 +99,21 @@ def write_file(input_file, output_file, mode):
 
 def main():
     '''
+    Performs first steps of the script when run. Assigns command line variables
+    to args and locates all pubs and houses in environment. Additional code to
+    create environment is also included but not used.
     
+    Parameters:
+    
+    environment: file
+        A txt file which contains locations of houses and pubs.
 
-    Returns
-    -------
-    None.
+    Returns:
+    
+    pubList: List
+        A list of pub locations with x and y coordinates.
+    houseList: List
+        A list of house locations with x and y coordinates
 
     '''
     
@@ -117,10 +129,12 @@ def main():
     args = parser.parse_args()
     
     #Assigning arg values to variables.
-    # Assigning random seed
+    
     global exportMapName
     global exportDataName
     global framework
+    
+    # Assigning random seed
     if args.seed == None:
         random.seed(5) #set to five to measure consitency
     else:
@@ -141,6 +155,7 @@ def main():
         exportDataName = args.exportDataName + '.txt'
     print("Data Name: ", exportDataName)
     
+    #Assining method type
     if args.drunkFramework == 'simple':
         framework = 'simple'
     else:
@@ -212,17 +227,30 @@ def main():
     
 def displayData():
     '''
+    A function which creates a scatter plot of houses and pubs which overlays
+    an environment map of the area. Figure is added to GUI frame 2.
+
+    Parameters:
+    
+    environment: List
+        A list containing base, pub and house values.
+    pubList: List
+        A list of pub locations with x and y coordinates
+    houseList: List
+    A list of house locations with x and y coordinates
+    
+    
+    Returns:
+    
+    Figure for GUI.
     
 
-    Returns
-    -------
-    None.
-
     '''
+    
     '''Step 5: Show pubs houses and environment'''
     print('Step 5: Displaying Environment, Pubs and Houses')
     
-    
+    #creating figure
     f = Figure(figsize=(5,5), dpi=100)
     a = f.add_subplot(111)
     a.imshow(environment)
@@ -232,21 +260,46 @@ def displayData():
     for j in range(9): #Number of pubs
          a.scatter(pubList[j][1], pubList[j][2], c='Green', label='Pubs')
     a.set_title('Pub and House Location', fontsize=18)
-         
-    canvas = FigureCanvasTkAgg(f, frame2)
+      
+    #adding figure to GUI
+    canvas = FigureCanvasTkAgg(f, frame2)#adds to frame 2
     canvas.draw()
     canvas.get_tk_widget().pack(side= BOTTOM, fill= BOTH, expand=True)
-    my_notebook.select(1)
-    my_notebook.add(frame2, text="Environment")
+    my_notebook.select(1)#automatically takes user to frame 2
+    my_notebook.add(frame2, text="Environment")#adds frame 2 tab to GUI
     
     
 def runModel():
     '''
+    Assigns drunks to starting locations and finishing locations.
+    Moves each drunk until it has reached its finishing location.
+    Can either move with simple model or advance model.
+    A dictionary is created which counts how often individual cells appear.
+    The dictionary is converted into a list of lists so it can be exported.
+    Step function is used to update progress bar.
     
+    Parameters:
+    
+    pubList: List
+        A list of pub locations with x and y coordinates
+    houseList: List
+        A list of house locations with x and y coordinates
+    step: Function
+        Updates the progress bar everytime it is called
+    stop: Function
+        Stops and clears progress bar
+    Framework: Variable
+        Contains text to decide which method is being used.
+        
 
-    Returns
-    -------
-    None.
+    Returns:
+    
+    list_to_export: List
+        A list of lists of occurences for each cell
+    timing.txt: List
+        A txt file which contains run times for the function
+    heatmap: figure
+        A figure which shows cell occurences and is added to figure 3
 
     '''
     runTimeStart = time.process_time()
@@ -284,6 +337,7 @@ def runModel():
     #Memory usage    
     del pubList    
     del houseList
+    del n
     #print("Deleted House and Pub list from Memory")
         
     
@@ -304,14 +358,14 @@ def runModel():
                 step() #Moves progress bar forward everytime loop is completed.
     else:
         print('Simple Model')
-        drunk_num = 0
+        #drunk_num = 0
         for i in (drunks):
-            start = time.process_time()
-            drunk_num += 1
+            #start = time.process_time()
+            #drunk_num += 1
             while i.is_home() == False:
                 i.move()
             else:
-                end = time.process_time()
+                #end = time.process_time()
                 #print("Drunk", drunk_num,"finished in", i.distance, "steps and", end - start, "seconds.")
                 #print(i.is_home())
                 step() #Moves progress bar forward everytime loop is completed.
@@ -338,16 +392,16 @@ def runModel():
     '''Creating a dictionary which counts the number of occurences of
     a cell for all drunks'''
     
-    count = {}
+    count = {}#dictionary to store cell occurances
     for i in drunks:
         df_route = i.get_route()
         #print(df_route)
         column = df_route[0]
-        for entry in column:
-            if entry in count.keys():
-                count[entry] += 1
+        for value in column:
+            if value in count.keys():#sees if value if already in dictionary 
+                count[value] += 1#if it is adds one to count
             else:
-                count[entry] = 1
+                count[value] = 1#if not adds value to dictionary
                 
     #Testing        
     # countTest = len(count)
@@ -361,15 +415,22 @@ def runModel():
    
     
     
-    '''converts dictrionary into a dataframe'''    
-    cell_count = pd.DataFrame(list(count.items()), columns = ['Coords', 'Amount'])
-    cell_count['x'], cell_count['y'] = zip(*cell_count.Coords)
-    cell_count.pop('Coords')
+    '''converts dictionary into a dataframe'''    
+    cell_count = pd.DataFrame(list(count.items()), columns = ['Coords', 'Amount'])#creates new dataframe to hold results
+    cell_count['x'], cell_count['y'] = zip(*cell_count.Coords)#divides one column into two.
+    cell_count.pop('Coords') #removes coords column
     
     #print(cell_count)
     
     '''merges dataframe of all cells with cell occurences'''            
-    merge_data = pd.merge(data, cell_count)
+    merge_data = pd.merge(data, cell_count)# merges two dfs together so that every cell has a value.
+    
+    # #Testing        
+    # countTest = len(merge_data)
+    # if countTest != 90000: #if there are not 90,000 cells something has failed
+    #     print("Count Test Failed")
+    # else:
+    #     print("Count Test Pass")
     
     step()#Moves progress bar forward
     
@@ -385,32 +446,33 @@ def runModel():
     step()#Moves progress bar forward
     
     '''converts into a list'''
-    list_of_amount = sorted_data['Amount'].values.tolist()
+    list_of_amount = sorted_data['Amount'].values.tolist()#converts df into list.
     #print(list_of_amount)
     
-    step()
+    step()#Moves progress bar forward
     
     '''converts into list of list'''
-    global new_list
+    global list_to_export
     # writes list into a list of lists which can be used to create heatmap.
     i = 0
-    new_list = []
+    list_to_export = []
     while i <len(list_of_amount):
-        new_list.append(list_of_amount[i : i + 300])
-        i += 300
+        list_to_export.append(list_of_amount[i : i + 300])#so it knows when to start a new line
+        i += 300 #300 values per row.
      
-    #print(new_list)
+    #print(list_to_export)
     step()#Moves progress bar forward
         
     #memory usage
     del list_of_amount
     
+    #timing
     runTimeEnd = time.process_time()
     tTime = runTimeEnd-runTimeStart
     print("Model Run Time:", tTime )
     
-    #Measuring Timing
-    file = open('timing.txt', 'a')
+    #export Timing for comparison
+    file = open('timing.txt', 'a')#appends data to txt file
     file.write(str(tTime) +'\n')
     file.close
     
@@ -422,45 +484,56 @@ def runModel():
     #Create graph
     f = Figure(figsize=(5,5), dpi=100)
     a = f.add_subplot(111)
-    a.imshow(new_list, cmap='inferno')
+    a.imshow(list_to_export, cmap='inferno')
     a.set_title("Random Walk Density Map", fontsize=18)
         
     #Add graph to canvas
     canvas = FigureCanvasTkAgg(f, frame3)
     canvas.draw()
-    canvas.get_tk_widget().pack(side= BOTTOM, fill= BOTH, expand=True)
-    my_notebook.select(2)
-    my_notebook.add(frame3, text="Drunk Hotspot")
+    canvas.get_tk_widget().pack(side= BOTTOM, fill= BOTH, expand=True)#fills entire page with graph
+    my_notebook.select(2)#opens third tab on GUI
+    my_notebook.add(frame3, text="Drunk Hotspot") #adds figure to thrid frame.
     
-    stop()#Ends progress bar
+    stop()#Ends and resets progress bar
 
 def exportMap():
     '''
+    Exports the heatmap with the given name, run from GUI
     
+    Parameters:
+    
+    exportMapName: variable
+        name assigned during main.
 
-    Returns
-    -------
-    None.
+    Returns:
+    
+    Image file of heatmap.
 
     '''
     global exportMapName
-    plt.imshow(new_list, cmap='inferno')
+    plt.imshow(list_to_export, cmap='inferno')
     plt.savefig(exportMapName)
     plt.close()#so that blank plt figure does not appear.
     print('Map Exported as', exportMapName)
     
 
 def exportData():
-    '''
     
+    '''
+    Exports a list into a txt file, run from GUI
+    
+    Parameters:
+    
+    exportDataName: variable
+        name assigned during main
 
-    Returns
-    -------
-    None.
+    Returns:
+    
+    txt file of list_to_export
 
     '''
     global exportDataName
-    write_file(new_list, exportDataName, 'w')
+    write_file(list_to_export, exportDataName, 'w')
 
     print('Data Exported as', exportDataName)
     
@@ -476,9 +549,9 @@ def stop():
     
 def exitModel():
     '''
-    Deletes Variables, and destroys tkinter GUI.
+    Deletes remianing variables, and destroys tkinter GUI.
     '''
-    global new_list
+    global list_to_export
     global environment
     global drunks
     global xAxis
@@ -487,7 +560,7 @@ def exitModel():
     global exportDataName
     
     #memory usage
-    del new_list
+    del list_to_export
     del environment
     del drunks
     del xAxis
