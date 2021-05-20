@@ -211,57 +211,101 @@ Move is a pseudo random algorithm whereas moveAdvance, stops agents backtracking
 <dl class="py method">
 <dt id="drunkFramework.drunk.ending_location">
 <code class="sig-name descname">ending_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.ending_location" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns:</p>
-<p>Drunk ending location</p>
+<dd><p>Returns the ending location of drunk when called</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.end: variables</dt><dd><p>contains location of ending point</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Drunk ending location</p>
+</div></blockquote>
 </dd></dl>
 <dl class="py method">
 <dt id="drunkFramework.drunk.get_route">
 <code class="sig-name descname">get_route</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.get_route" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts self.route into a dataframe</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.route: List</dt><dd><p>A list of all cells drunk has visited</p>
+</dd>
+</dl>
+</div></blockquote>
 <p>Returns:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>df: pandas dataframe</dt><dd><p>A dataframe containing every cell the drunk has visited.</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py method">
 <dt id="drunkFramework.drunk.is_home">
 <code class="sig-name descname">is_home</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.is_home" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks to see if drunk has reached its ending point</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.x: variable</dt><dd><p>current x position</p>
+</dd>
+<dt>self.y: variable</dt><dd><p>current y position</p>
+</dd>
+<dt>self.end: variable</dt><dd><p>ending position (house) for drunk</p>
+</dd>
+</dl>
+</div></blockquote>
 <p>Returns:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>False: Boolean</dt><dd><p>Drunk has not finished</p>
 </dd>
 <dt>True: Boolean</dt><dd><p>Drunk has finished its walk.</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py method">
 <dt id="drunkFramework.drunk.move">
 <code class="sig-name descname">move</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple method which creates a pseudo-random walking alogrithm</p>
-<p>Returns:</p>
-<dl class="simple">
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>self.x: variable</dt><dd><p>current x position of drunk</p>
 </dd>
-</dl>
-<p>self.y: variable
-current y position of drunk
-self.route: list</p>
-<blockquote>
-<div><p>a list of cells drunks have visited</p>
-</div></blockquote>
-<dl class="simple">
+<dt>self.y: variable</dt><dd><p>current y position of drunk</p>
+</dd>
+<dt>self.route: list</dt><dd><p>a list of cells drunks have visited</p>
+</dd>
 <dt>self.distance: list</dt><dd><p>a list of the number of moves</p>
 </dd>
 </dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.x: variable</dt><dd><p>new x position of drunk</p>
+</dd>
+<dt>self.y: variable</dt><dd><p>new y position of drunk</p>
+</dd>
+<dt>self.route: list</dt><dd><p>adds new location</p>
+</dd>
+<dt>self.distance: list</dt><dd><p>adds 1 to total</p>
+</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py method">
 <dt id="drunkFramework.drunk.moveAdvance">
 <code class="sig-name descname">moveAdvance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.moveAdvance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Advanced method which stops backtracking of drunks.</p>
-<p>Returns:</p>
-<dl class="simple">
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
 <dt>self.x: variable</dt><dd><p>current x position of drunk</p>
 </dd>
 </dl>
@@ -277,12 +321,38 @@ self.route: list</p>
 <dt>self.distance: list</dt><dd><p>a list of the number of moves</p>
 </dd>
 </dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.x: variable</dt><dd><p>new x position of drunk</p>
+</dd>
+<dt>self.y: variable</dt><dd><p>new y position of drunk</p>
+</dd>
+<dt>self.route: list</dt><dd><p>adds new location</p>
+</dd>
+<dt>self.lastPos: list</dt><dd><p>makes list equal to current position</p>
+</dd>
+<dt>self.distance: list</dt><dd><p>adds 1 to total</p>
+</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py method">
 <dt id="drunkFramework.drunk.starting_location">
 <code class="sig-name descname">starting_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunkFramework.drunk.starting_location" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns:</p>
-<p>Drunk starting location</p>
+<dd><p>Returns the starting location of drunk when called</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>self.start: variables</dt><dd><p>contains location of starting point</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Drunk starting location</p>
+</div></blockquote>
 </dd></dl>
 </dd></dl>
 </section>

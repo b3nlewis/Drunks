@@ -45,21 +45,21 @@ print('Step 2: Defining Functions')
 
 def open_file(input_file, output_file, var_type):
     '''
-    opens a file and saves it as a list of lists. Can change what variable
+    Opens a file and saves it as a list of lists. Can change what variable
     type parameters are saved as. e.g. string, int, float.
     
     Parameters:
     
-    input_file : file
-        A raw txt file.
-    output_file : variable
-        A list of list containing input file data.
-    var_type : TYPE
-        Assigns input data a variabale type.
+        input_file : file
+            A raw txt file.
+        output_file : variable
+            A list of list containing input file data.
+        var_type : TYPE
+            Assigns input data a variabale type.
 
     Returns:
     
-    Returns the input file as a List of Lists.
+        Returns the input file as a List of Lists.
 
     '''
     
@@ -78,16 +78,16 @@ def write_file(input_file, output_file, mode):
     
     Parameters:
     
-    input_file : variable
-        A list of list containing data
-    output_file : file
-        A txt file containing that data from input file with rows equal to the length of a list.
-    Mode : string
-        String which decides if output rewrites('w') or appends ('a') data.
+        input_file : variable
+            A list of list containing data
+        output_file : file
+            A txt file containing that data from input file with rows equal to the length of a list.
+        Mode : string
+            String which decides if output rewrites('w') or appends ('a') data.
   
     Returns:
     
-    A file with the output data written in it.
+        A file with the output data written in it.
 
     '''
     file_finished = open(output_file, mode, newline='') 
@@ -105,15 +105,15 @@ def main():
     
     Parameters:
     
-    environment: file
-        A txt file which contains locations of houses and pubs.
+        environment: file
+            A txt file which contains locations of houses and pubs.
 
     Returns:
-    
-    pubList: List
-        A list of pub locations with x and y coordinates.
-    houseList: List
-        A list of house locations with x and y coordinates
+        
+        pubList: List
+            A list of pub locations with x and y coordinates.
+        houseList: List
+            A list of house locations with x and y coordinates
 
     '''
     
@@ -232,17 +232,17 @@ def displayData():
 
     Parameters:
     
-    environment: List
-        A list containing base, pub and house values.
-    pubList: List
-        A list of pub locations with x and y coordinates
-    houseList: List
-    A list of house locations with x and y coordinates
+        environment: List
+            A list containing base, pub and house values.
+        pubList: List
+            A list of pub locations with x and y coordinates
+        houseList: List
+        A list of house locations with x and y coordinates
     
     
     Returns:
     
-    Figure for GUI.
+        Figure for GUI.
     
 
     '''
@@ -280,26 +280,26 @@ def runModel():
     
     Parameters:
     
-    pubList: List
-        A list of pub locations with x and y coordinates
-    houseList: List
-        A list of house locations with x and y coordinates
-    step: Function
-        Updates the progress bar everytime it is called
-    stop: Function
-        Stops and clears progress bar
-    Framework: Variable
-        Contains text to decide which method is being used.
+        pubList: List
+            A list of pub locations with x and y coordinates
+        houseList: List
+            A list of house locations with x and y coordinates
+        step: Function
+            Updates the progress bar everytime it is called
+        stop: Function
+            Stops and clears progress bar
+        Framework: Variable
+            Contains text to decide which method is being used.
         
 
     Returns:
-    
-    list_to_export: List
-        A list of lists of occurences for each cell
-    timing.txt: List
-        A txt file which contains run times for the function
-    heatmap: figure
-        A figure which shows cell occurences and is added to figure 3
+        
+        list_to_export: List
+            A list of lists of occurences for each cell
+        timing.txt: List
+            A txt file which contains run times for the function
+        heatmap: figure
+            A figure which shows cell occurences and is added to figure 3
 
     '''
     runTimeStart = time.process_time()
@@ -502,12 +502,12 @@ def exportMap():
     
     Parameters:
     
-    exportMapName: variable
-        name assigned during main.
+        exportMapName: variable
+            name assigned during main.
 
     Returns:
     
-    Image file of heatmap.
+        Image file of heatmap.
 
     '''
     global exportMapName
@@ -524,12 +524,12 @@ def exportData():
     
     Parameters:
     
-    exportDataName: variable
-        name assigned during main
+        exportDataName: variable
+            name assigned during main
 
     Returns:
     
-    txt file of list_to_export
+        txt file of list_to_export
 
     '''
     global exportDataName
@@ -538,18 +538,63 @@ def exportData():
     print('Data Exported as', exportDataName)
     
 def step():
-    '''Every time it is called the progress bar moves 3%'''
+    '''
+    Every time step is called the progress bar moves 3%
+    
+    Parameters:
+        
+        progress_bar['value']: variable
+            position of the progress bar
+            
+    Returns:
+       Updated progress_bar value    
+    
+    '''
+    
+    
     progress_bar['value'] += 3
     root.update_idletasks()#Updates the GUI to show pregression.
     
 def stop():
-    '''Stops the progress bar'''
+    '''
+    Stops the progress bar
+    
+    Parameters:
+        
+        progress_bar: variable
+            position of the progress bar
+            
+    Returns:
+       A stopping function for the progress bar.   
+    
+    '''
     progress_bar.stop()
 
     
 def exitModel():
     '''
-    Deletes remianing variables, and destroys tkinter GUI.
+    Deletes all remaining variables
+    
+    Parameters:
+        
+        list_to_export: list
+            list of cell occurences.
+        environment: list
+            values of cells displays pubs and houses
+        drunks: list
+            list of drunks
+        xAxis: int
+            size of x axis
+        yAxis: int
+            size of y axis
+        exportMapName: string
+            name of export
+        exportDataName: string
+            name of export
+            
+    Returns:
+       None   
+    
     '''
     global list_to_export
     global environment

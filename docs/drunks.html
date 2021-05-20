@@ -209,7 +209,8 @@ allows backtracking. The advanced version has significantly better performance.<
 <dd><p>A function which creates a scatter plot of houses and pubs which overlays
 an environment map of the area. Figure is added to GUI frame 2.</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>environment: List</dt><dd><p>A list containing base, pub and house values.</p>
 </dd>
 <dt>pubList: List</dt><dd><p>A list of pub locations with x and y coordinates</p>
@@ -217,37 +218,71 @@ an environment map of the area. Figure is added to GUI frame 2.</p>
 </dl>
 <p>houseList: List
 A list of house locations with x and y coordinates</p>
+</div></blockquote>
 <p>Returns:</p>
-<p>Figure for GUI.</p>
+<blockquote>
+<div><p>Figure for GUI.</p>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.exitModel">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">exitModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunks.exitModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes remianing variables, and destroys tkinter GUI.</p>
+<dd><p>Deletes all remaining variables</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>list_to_export: list</dt><dd><p>list of cell occurences.</p>
+</dd>
+<dt>environment: list</dt><dd><p>values of cells displays pubs and houses</p>
+</dd>
+<dt>drunks: list</dt><dd><p>list of drunks</p>
+</dd>
+<dt>xAxis: int</dt><dd><p>size of x axis</p>
+</dd>
+<dt>yAxis: int</dt><dd><p>size of y axis</p>
+</dd>
+<dt>exportMapName: string</dt><dd><p>name of export</p>
+</dd>
+<dt>exportDataName: string</dt><dd><p>name of export</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.exportData">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">exportData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunks.exportData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exports a list into a txt file, run from GUI</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>exportDataName: variable</dt><dd><p>name assigned during main</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<p>txt file of list_to_export</p>
+<blockquote>
+<div><p>txt file of list_to_export</p>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.exportMap">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">exportMap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunks.exportMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exports the heatmap with the given name, run from GUI</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>exportMapName: variable</dt><dd><p>name assigned during main.</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<p>Image file of heatmap.</p>
+<blockquote>
+<div><p>Image file of heatmap.</p>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.main">
@@ -256,25 +291,30 @@ A list of house locations with x and y coordinates</p>
 to args and locates all pubs and houses in environment. Additional code to
 create environment is also included but not used.</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>environment: file</dt><dd><p>A txt file which contains locations of houses and pubs.</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>pubList: List</dt><dd><p>A list of pub locations with x and y coordinates.</p>
 </dd>
 <dt>houseList: List</dt><dd><p>A list of house locations with x and y coordinates</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.open_file">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">open_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_file</span></em>, <em class="sig-param"><span class="n">output_file</span></em>, <em class="sig-param"><span class="n">var_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drunks.open_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>opens a file and saves it as a list of lists. Can change what variable
+<dd><p>Opens a file and saves it as a list of lists. Can change what variable
 type parameters are saved as. e.g. string, int, float.</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>input_file<span class="classifier">file</span></dt><dd><p>A raw txt file.</p>
 </dd>
 <dt>output_file<span class="classifier">variable</span></dt><dd><p>A list of list containing input file data.</p>
@@ -282,8 +322,11 @@ type parameters are saved as. e.g. string, int, float.</p>
 <dt>var_type<span class="classifier">TYPE</span></dt><dd><p>Assigns input data a variabale type.</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<p>Returns the input file as a List of Lists.</p>
+<blockquote>
+<div><p>Returns the input file as a List of Lists.</p>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.runModel">
@@ -295,7 +338,8 @@ A dictionary is created which counts how often individual cells appear.
 The dictionary is converted into a list of lists so it can be exported.
 Step function is used to update progress bar.</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>pubList: List</dt><dd><p>A list of pub locations with x and y coordinates</p>
 </dd>
 <dt>houseList: List</dt><dd><p>A list of house locations with x and y coordinates</p>
@@ -307,8 +351,10 @@ Step function is used to update progress bar.</p>
 <dt>Framework: Variable</dt><dd><p>Contains text to decide which method is being used.</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>list_to_export: List</dt><dd><p>A list of lists of occurences for each cell</p>
 </dd>
 <dt>timing.txt: List</dt><dd><p>A txt file which contains run times for the function</p>
@@ -316,23 +362,47 @@ Step function is used to update progress bar.</p>
 <dt>heatmap: figure</dt><dd><p>A figure which shows cell occurences and is added to figure 3</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.step">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunks.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Every time it is called the progress bar moves 3%</p>
+<dd><p>Every time step is called the progress bar moves 3%</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>progress_bar[‘value’]: variable</dt><dd><p>position of the progress bar</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Updated progress_bar value</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.stop">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#drunks.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops the progress bar</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>progress_bar: variable</dt><dd><p>position of the progress bar</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A stopping function for the progress bar.</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py function">
 <dt id="drunks.write_file">
 <code class="sig-prename descclassname">drunks.</code><code class="sig-name descname">write_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_file</span></em>, <em class="sig-param"><span class="n">output_file</span></em>, <em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#drunks.write_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a file out from a local file with a given file name.</p>
 <p>Parameters:</p>
-<dl class="simple">
+<blockquote>
+<div><dl class="simple">
 <dt>input_file<span class="classifier">variable</span></dt><dd><p>A list of list containing data</p>
 </dd>
 <dt>output_file<span class="classifier">file</span></dt><dd><p>A txt file containing that data from input file with rows equal to the length of a list.</p>
@@ -340,8 +410,11 @@ Step function is used to update progress bar.</p>
 <dt>Mode<span class="classifier">string</span></dt><dd><p>String which decides if output rewrites(‘w’) or appends (‘a’) data.</p>
 </dd>
 </dl>
+</div></blockquote>
 <p>Returns:</p>
-<p>A file with the output data written in it.</p>
+<blockquote>
+<div><p>A file with the output data written in it.</p>
+</div></blockquote>
 </dd></dl>
 </section>
 

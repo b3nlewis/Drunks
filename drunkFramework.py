@@ -20,31 +20,31 @@ class drunk():
         
         Parameters:
         
-        pubX: variable
-            x position of its assigned starting point
-        pubY: variable
-            y position of its assigned starting point
-        houseX: variable
-            x position of its assigned ending point
-        houseY: variable
-            y position of its assigned ending point
+            pubX: variable
+                x position of its assigned starting point
+            pubY: variable
+                y position of its assigned starting point
+            houseX: variable
+                x position of its assigned ending point
+            houseY: variable
+                y position of its assigned ending point
 
         Returns:
         
-        self.x: variable
-            current x position of drunk
-        self.y: variable
-            current y position of drunk
-        self.start: variable
-            starting location of drunk
-        self.end: variable
-            ending location of drunk
-        self.route: list
-            a list containing every cell drunk has visited
-        self.distance: list
-            a list containing the number of moves the drunk has made
-        self.lastPos: list
-            a list containing the last position the drunk was
+            self.x: variable
+                current x position of drunk
+            self.y: variable
+                current y position of drunk
+            self.start: variable
+                starting location of drunk
+            self.end: variable
+                ending location of drunk
+            self.route: list
+                a list containing every cell drunk has visited
+            self.distance: list
+                a list containing the number of moves the drunk has made
+            self.lastPos: list
+                a list containing the last position the drunk was
             
         '''
         self.x = pubX #initial starting location
@@ -57,9 +57,16 @@ class drunk():
         
     def starting_location(self):
         '''
-        Returns:
+        Returns the starting location of drunk when called
         
-        Drunk starting location
+        Parameters:
+            
+            self.start: variables
+                contains location of starting point
+                
+        Returns:
+            
+            Drunk starting location
 
         '''
         print(self.start)
@@ -67,9 +74,16 @@ class drunk():
     
     def ending_location(self):
         '''
-        Returns:
+        Returns the ending location of drunk when called
         
-        Drunk ending location
+        Parameters:
+            
+            self.end: variables
+                contains location of ending point
+                
+        Returns:
+            
+            Drunk ending location
 
         '''
         print(self.end)
@@ -78,18 +92,29 @@ class drunk():
     def move(self):#simple method which includes backtracking
         '''
         Simple method which creates a pseudo-random walking alogrithm
-
-        Returns:
         
-        self.x: variable
-            current x position of drunk
-        self.y: variable
-        current y position of drunk
-        self.route: list
-            a list of cells drunks have visited
-        self.distance: list
-            a list of the number of moves
-
+        Parameters:
+            
+            self.x: variable
+                current x position of drunk
+            self.y: variable
+                current y position of drunk
+            self.route: list
+                a list of cells drunks have visited
+            self.distance: list
+                a list of the number of moves
+            
+        Returns:
+            
+            self.x: variable
+                new x position of drunk
+            self.y: variable
+                new y position of drunk
+            self.route: list
+                adds new location
+            self.distance: list
+                adds 1 to total      
+        
         '''
         #if self.check_cell() == False:
         (dx, dy) = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)]) # N, E, S, W
@@ -102,22 +127,33 @@ class drunk():
         '''
         Advanced method which stops backtracking of drunks.
 
-        Returns:
+        Parameters:
         
-        self.x: variable
-            current x position of drunk
-        self.y: variable
-        current y position of drunk
-        self.route: list
-            a list of cells drunks have visited
-        self.lastPos: list
-            a list of the drunks last position
-        self.distance: list
-            a list of the number of moves
+            self.x: variable
+                current x position of drunk
+            self.y: variable
+            current y position of drunk
+            self.route: list
+                a list of cells drunks have visited
+            self.lastPos: list
+                a list of the drunks last position
+            self.distance: list
+                a list of the number of moves
+                
+        Returns:
+            
+            self.x: variable
+                new x position of drunk
+            self.y: variable
+                new y position of drunk
+            self.route: list
+                adds new location
+            self.lastPos: list
+                makes list equal to current position
+            self.distance: list
+                adds 1 to total  
 
         '''
-    
-        #if self.lastPos != None:#any move apart from first move
             
         if self.lastPos == [0, 1]: #check if last pos is north
             (dx, dy) = random.choice([(0, 1), (1, 0), (-1, 0)]) #Cannot go south
@@ -166,13 +202,22 @@ class drunk():
     def is_home(self):#looks to see if drunk has reached its house
         '''
         Checks to see if drunk has reached its ending point
+        
+        Parameters:
+            
+            self.x: variable
+                current x position
+            self.y: variable
+                current y position
+            self.end: variable
+                ending position (house) for drunk
 
         Returns:
         
-        False: Boolean
-            Drunk has not finished
-        True: Boolean
-            Drunk has finished its walk.
+            False: Boolean
+                Drunk has not finished
+            True: Boolean
+                Drunk has finished its walk.
 
         '''
         if (self.x, self.y) != self.end:
@@ -185,11 +230,16 @@ class drunk():
     def get_route(self):
         '''
         Converts self.route into a dataframe
+        
+        Parameters:
+            
+            self.route: List
+                A list of all cells drunk has visited
 
         Returns:
         
-        df: pandas dataframe
-            A dataframe containing every cell the drunk has visited.
+            df: pandas dataframe
+                A dataframe containing every cell the drunk has visited.
 
         '''
         df = pd.DataFrame(self.route)
