@@ -513,7 +513,7 @@ def exportMap():
     global exportMapName
     plt.imshow(list_to_export, cmap='inferno')
     plt.savefig(exportMapName)
-    plt.close()#so that blank plt figure does not appear.
+    #plt.close()#so that blank plt figure does not appear.
     print('Map Exported as', exportMapName)
     
 
