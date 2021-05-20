@@ -391,7 +391,7 @@ def runModel():
     
     '''Creating a dictionary which counts the number of occurences of
     a cell for all drunks'''
-    
+    # modified from Datacamp. https://campus.datacamp.com/courses/python-data-science-toolbox-part-2/using-iterators-in-pythonland?ex=12
     count = {}#dictionary to store cell occurances
     for i in drunks:
         df_route = i.get_route()
