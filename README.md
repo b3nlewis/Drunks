@@ -28,6 +28,8 @@ Once the command line is entered a GUI will appear.
 To run the model click each button until the process is completed.
 To end the model, either click the cross on the GUI or click exit model.
 The model must close before it can be run again.
+
+
 ![GUI](https://github.com/b3nlewis/Drunks/blob/main/docs/homepage.png?raw=true)
 
 For more detailed documentation click [here](https://b3nlewis.github.io/Drunks/).
